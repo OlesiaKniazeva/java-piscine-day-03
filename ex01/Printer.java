@@ -14,7 +14,8 @@ public class Printer {
             try {
                 wait();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println("Error: " + e.getMessage());
+                System.exit(1);
             }
         }
         System.out.println(name);
