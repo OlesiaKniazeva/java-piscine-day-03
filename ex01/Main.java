@@ -10,9 +10,6 @@ public class Main {
         checkArgument(args);
         AMOUNT = returnNumFromStr(args[0]);
 
-        Thread human = Thread.currentThread();
-        human.setName("Human");
-
         Printer printer = new Printer("Hen");
 
         Runnable task  = () -> {
@@ -33,17 +30,6 @@ public class Main {
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
             return;
-        }
-
-
-        for (int i = 0; i < AMOUNT; ++i) {
-            System.out.println(human.getName());
-        }
-    }
-
-    public void run() {
-        for (int i = 0; i < AMOUNT; ++i) {
-            System.out.println(Thread.currentThread().getName());
         }
     }
 

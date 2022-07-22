@@ -10,7 +10,7 @@ public class Printer {
     public synchronized void  printData() {
         String name = Thread.currentThread().getName();
 
-        if (name.equals(blockTreadName)) {
+        while (name.equals(blockTreadName)) {
             try {
                 wait();
             } catch (InterruptedException e) {
