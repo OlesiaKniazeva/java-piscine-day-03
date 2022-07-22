@@ -1,8 +1,6 @@
 package ex01;
 
 import java.util.Scanner;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
 
@@ -15,16 +13,11 @@ public class Main {
         Thread human = Thread.currentThread();
         human.setName("Human");
 
-        Lock bankLock = new ReentrantLock();
+        Printer printer = new Printer("Hen");
 
         Runnable task  = () -> {
             for (int i = 0; i < AMOUNT; ++i) {
-                printData(Thread.currentThread().getName(), bankLock);
-                try {
-                    Thread.sleep(20);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                    printer.printData();
             }
         };
 
@@ -45,15 +38,6 @@ public class Main {
 
         for (int i = 0; i < AMOUNT; ++i) {
             System.out.println(human.getName());
-        }
-    }
-
-    public static  void printData(String name, Lock bankLock) {
-        bankLock.lock();
-        try {
-            System.out.println(name);
-        } finally {
-            bankLock.unlock();
         }
     }
 
