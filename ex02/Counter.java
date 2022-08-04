@@ -4,37 +4,26 @@ public class Counter {
     private final int arraySize;
 
     private int sum;
-    private int lastId;
-    private int nowId;
 
     private final int sizeBlock;
+    private final int threadAmount;
 
     private final int[] arr;
 
     Counter(int arraySize, int threadCount, int[] arr) {
         this.arraySize = arraySize;
         sizeBlock = (int) Math.ceil(arraySize / threadCount);
-        lastId = threadCount - 1;
-        nowId = 0;
+        this.threadAmount = threadCount;
         this.arr = arr;
         sum = 0;
     }
 
-    public synchronized void count() {
+    public void count() {
         int id = Integer.parseInt(Thread.currentThread().getName());
-
-        while (id != nowId) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                System.out.println("Error: " + e.getMessage());
-                System.exit(1);
-            }
-        }
 
         int startIdx = id * sizeBlock;
         int endIdx;
-        if (id != lastId) {
+        if (id != threadAmount - 1) {
             endIdx = startIdx + sizeBlock;
         } else {
             endIdx = arraySize;
@@ -48,10 +37,11 @@ public class Counter {
 
         System.out.println("Thread " + (id + 1) + ": from " + startIdx
                 + " to " + endIdx + " sum is " + res);
-        sum += res;
-        nowId++;
+        addSum(res);
+    }
 
-        notifyAll();
+    private synchronized void addSum(int res) {
+        sum += res;
     }
 
     public int getSum() {

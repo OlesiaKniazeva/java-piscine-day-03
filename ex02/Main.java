@@ -40,6 +40,8 @@ public class Main {
         }
 
         System.out.println("Sum by threads: " + counter.getSum());
+
+        System.out.println("\nStandard sum: " + sum + ", Thread sum: " + counter.getSum());
     }
 
     private static int sum(int[] arr) {
