@@ -30,7 +30,9 @@ public class Links {
                 System.exit(1);
 
             }
-        }
+        } else {
+                System.out.println("No file with links. Check if it exists!");
+            }
     }
 
     public int getLinksAmount() {
